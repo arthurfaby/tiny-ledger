@@ -1,3 +1,5 @@
+import { InvalidCurrenctError } from '../exceptions/invalid-currenct-error';
+
 export class Money {
   constructor(
     public readonly amount: number,
@@ -12,14 +14,14 @@ export class Money {
 
   public add(other: Money): Money {
     if (this.currency !== other.currency) {
-      throw new Error('Cannot operate on different currencies');
+      throw new InvalidCurrenctError('Cannot operate on different currencies');
     }
     return new Money(this.amount + other.amount, this.currency);
   }
 
   public subtract(other: Money): Money {
     if (this.currency !== other.currency) {
-      throw new Error('Cannot operate on different currencies');
+      throw new InvalidCurrenctError('Cannot operate on different currencies');
     }
     return new Money(this.amount - other.amount, this.currency);
   }
