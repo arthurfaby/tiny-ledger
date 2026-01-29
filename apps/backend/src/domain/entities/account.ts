@@ -1,6 +1,6 @@
 import { Money } from '../value-objects/money';
 import { InsufficientFundsError } from '../exceptions/insufficient-funds-error';
-import { InvalidCurrenctError } from '../exceptions/invalid-currenct-error';
+import { InvalidCurrencyError } from '../exceptions/invalid-currency-error';
 import { MustBePositiveError } from '../exceptions/must-be-positive-error';
 
 export class Account {
@@ -15,7 +15,7 @@ export class Account {
 
   public deposit(money: Money): void {
     if (this.balance.currency !== money.currency) {
-      throw new InvalidCurrenctError('Cannot deposit different currency');
+      throw new InvalidCurrencyError('Cannot deposit different currency');
     }
     if (money.amount <= 0) {
       throw new MustBePositiveError('Deposit amount must be positive');
@@ -25,7 +25,7 @@ export class Account {
 
   public withdraw(money: Money): void {
     if (this.balance.currency !== money.currency) {
-      throw new InvalidCurrenctError('Cannot withdraw different currency');
+      throw new InvalidCurrencyError('Cannot withdraw different currency');
     }
     if (money.amount <= 0) {
       throw new MustBePositiveError('Withdraw amount must be positive');
