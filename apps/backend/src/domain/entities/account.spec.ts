@@ -1,7 +1,7 @@
 import { Money } from '../value-objects/money';
 import { Account } from './account';
 import { InsufficientFundsError } from '../exceptions/insufficient-funds-error';
-import { InvalidCurrenctError } from '../exceptions/invalid-currenct-error';
+import { InvalidCurrencyError } from '../exceptions/invalid-currency-error';
 import { MustBePositiveError } from '../exceptions/must-be-positive-error';
 
 describe('Account', () => {
@@ -26,7 +26,7 @@ describe('Account', () => {
     const fiveDollars = new Money(500, 'USD');
     expect(() => {
       account.deposit(fiveDollars);
-    }).toThrow(InvalidCurrenctError);
+    }).toThrow(InvalidCurrencyError);
   });
 
   it('can not deposit 0 money', () => {
@@ -70,7 +70,7 @@ describe('Account', () => {
     const fiveDollars = new Money(500, 'USD');
     expect(() => {
       account.withdraw(fiveDollars);
-    }).toThrow(InvalidCurrenctError);
+    }).toThrow(InvalidCurrencyError);
   });
 
   it('can not withdraw 0 money', () => {
