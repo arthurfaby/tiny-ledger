@@ -39,7 +39,9 @@ export default tseslint.config(
       ],
       '@typescript-eslint/no-floating-promises': 'error',
       'no-console': ['warn', { allow: ['warn', 'error'] }],
-      '@typescript-eslint/consistent-type-definitions': ['error', 'interface'], 
-   },
+      '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
+      '@typescript-eslint/require-await': 'off',
+      '@typescript-eslint/no-extraneous-class': 'off',
+    },
   },
 );
