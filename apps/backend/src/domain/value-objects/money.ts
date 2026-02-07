@@ -1,4 +1,4 @@
-import { InvalidCurrencyError } from '../exceptions/invalid-currency-error';
+import { BusinessRuleValidationError } from '../exceptions/business-rule-validation.error';
 
 export class Money {
   constructor(
@@ -6,7 +6,7 @@ export class Money {
     public readonly currency: string,
   ) {
     if (amount % 1 !== 0) {
-      throw new Error('Amount must be an integer');
+      throw new BusinessRuleValidationError('Amount must be an integer');
     }
     this.amount = amount;
     this.currency = currency;
@@ -14,14 +14,18 @@ export class Money {
 
   public add(other: Money): Money {
     if (this.currency !== other.currency) {
-      throw new InvalidCurrencyError('Cannot operate on different currencies');
+      throw new BusinessRuleValidationError(
+        'Cannot operate on different currencies',
+      );
     }
     return new Money(this.amount + other.amount, this.currency);
   }
 
   public subtract(other: Money): Money {
     if (this.currency !== other.currency) {
-      throw new InvalidCurrencyError('Cannot operate on different currencies');
+      throw new BusinessRuleValidationError(
+        'Cannot operate on different currencies',
+      );
     }
     return new Money(this.amount - other.amount, this.currency);
   }

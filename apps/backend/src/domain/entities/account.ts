@@ -1,7 +1,6 @@
 import { Money } from '../value-objects/money';
 import { InsufficientFundsError } from '../exceptions/insufficient-funds-error';
-import { InvalidCurrencyError } from '../exceptions/invalid-currency-error';
-import { MustBePositiveError } from '../exceptions/must-be-positive-error';
+import { BusinessRuleValidationError } from '../exceptions/business-rule-validation.error';
 
 export class Account {
   balance: Money;
@@ -15,20 +14,24 @@ export class Account {
 
   public deposit(money: Money): void {
     if (this.balance.currency !== money.currency) {
-      throw new InvalidCurrencyError('Cannot deposit different currency');
+      throw new BusinessRuleValidationError('Transaction currency mismatch');
     }
     if (money.amount <= 0) {
-      throw new MustBePositiveError('Deposit amount must be positive');
+      throw new BusinessRuleValidationError(
+        'Cannot deposit non positive amount',
+      );
     }
     this.balance = this.balance.add(money);
   }
 
   public withdraw(money: Money): void {
     if (this.balance.currency !== money.currency) {
-      throw new InvalidCurrencyError('Cannot withdraw different currency');
+      throw new BusinessRuleValidationError('Transaction currency mismatch');
     }
     if (money.amount <= 0) {
-      throw new MustBePositiveError('Withdraw amount must be positive');
+      throw new BusinessRuleValidationError(
+        'Cannot withdraw non positive amount',
+      );
     }
     if (this.balance.amount < money.amount) {
       throw new InsufficientFundsError('Insufficient funds');

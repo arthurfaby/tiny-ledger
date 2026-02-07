@@ -3,9 +3,8 @@ import { Account } from '../../domain/entities/account';
 import { AccountRepository } from '../../domain/repositories/account.repository';
 import { TransferMoneyUseCase } from './transfer-money.use-case';
 import { AccountNotFoundError } from '../../domain/exceptions/account-not-found.error';
-import { SelfTransferError } from '../../domain/exceptions/self-transfer.error';
+import { BusinessRuleValidationError } from '../../domain/exceptions/business-rule-validation.error';
 import { InsufficientFundsError } from '../../domain/exceptions/insufficient-funds-error';
-import { InvalidCurrencyError } from '../../domain/exceptions/invalid-currency-error';
 
 class InMemoryAccountRepository implements AccountRepository {
   accounts: Record<string, Account | undefined> = {};
@@ -69,7 +68,7 @@ describe('TransferMoney use case', () => {
         amount: 500,
         currency: 'EUR',
       }),
-    ).rejects.toThrow(SelfTransferError);
+    ).rejects.toThrow(BusinessRuleValidationError);
   });
 
   it('should not transfer money because of insufficient funds', async () => {
@@ -101,7 +100,7 @@ describe('TransferMoney use case', () => {
         amount: 500,
         currency: 'USD',
       }),
-    ).rejects.toThrow(InvalidCurrencyError);
+    ).rejects.toThrow(BusinessRuleValidationError);
   });
 
   it('should not transfer money because of one account in not another currency', async () => {
@@ -118,7 +117,7 @@ describe('TransferMoney use case', () => {
         amount: 500,
         currency: 'EUR',
       }),
-    ).rejects.toThrow(InvalidCurrencyError);
+    ).rejects.toThrow(BusinessRuleValidationError);
   });
 
   it('should transfer money', async () => {

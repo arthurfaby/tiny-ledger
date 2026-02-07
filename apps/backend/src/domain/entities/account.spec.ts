@@ -1,8 +1,7 @@
 import { Money } from '../value-objects/money';
 import { Account } from './account';
 import { InsufficientFundsError } from '../exceptions/insufficient-funds-error';
-import { InvalidCurrencyError } from '../exceptions/invalid-currency-error';
-import { MustBePositiveError } from '../exceptions/must-be-positive-error';
+import { BusinessRuleValidationError } from '../exceptions/business-rule-validation.error';
 
 describe('Account', () => {
   it('should initialize with id and initial balance', () => {
@@ -26,7 +25,7 @@ describe('Account', () => {
     const fiveDollars = new Money(500, 'USD');
     expect(() => {
       account.deposit(fiveDollars);
-    }).toThrow(InvalidCurrencyError);
+    }).toThrow(BusinessRuleValidationError);
   });
 
   it('can not deposit 0 money', () => {
@@ -35,7 +34,7 @@ describe('Account', () => {
     const zeroEuros = new Money(0, 'EUR');
     expect(() => {
       account.deposit(zeroEuros);
-    }).toThrow(MustBePositiveError);
+    }).toThrow(BusinessRuleValidationError);
   });
 
   it('can not deposit negative money', () => {
@@ -44,7 +43,7 @@ describe('Account', () => {
     const minusTenEuros = new Money(-1000, 'EUR');
     expect(() => {
       account.deposit(minusTenEuros);
-    }).toThrow(MustBePositiveError);
+    }).toThrow(BusinessRuleValidationError);
   });
 
   it('can withdraw money', () => {
@@ -70,7 +69,7 @@ describe('Account', () => {
     const fiveDollars = new Money(500, 'USD');
     expect(() => {
       account.withdraw(fiveDollars);
-    }).toThrow(InvalidCurrencyError);
+    }).toThrow(BusinessRuleValidationError);
   });
 
   it('can not withdraw 0 money', () => {
@@ -79,7 +78,7 @@ describe('Account', () => {
     const zeroEuros = new Money(0, 'EUR');
     expect(() => {
       account.withdraw(zeroEuros);
-    }).toThrow(MustBePositiveError);
+    }).toThrow(BusinessRuleValidationError);
   });
 
   it('can not withdraw negative money', () => {
@@ -88,6 +87,6 @@ describe('Account', () => {
     const minusTenEuros = new Money(-1000, 'EUR');
     expect(() => {
       account.withdraw(minusTenEuros);
-    }).toThrow(MustBePositiveError);
+    }).toThrow(BusinessRuleValidationError);
   });
 });

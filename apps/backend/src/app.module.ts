@@ -1,5 +1,9 @@
 import { Module } from '@nestjs/common';
+import { AccountModule } from './infrastructure/account.module';
 
-@Module({})
-// eslint-disable-next-line @typescript-eslint/no-extraneous-class
+@Module({
+  imports: [AccountModule],
+  controllers: [],
+  providers: [],
+})
 export class AppModule {}

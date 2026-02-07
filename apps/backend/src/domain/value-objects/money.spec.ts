@@ -1,4 +1,5 @@
 import { Money } from './money';
+import { BusinessRuleValidationError } from '../exceptions/business-rule-validation.error';
 
 describe('Money', () => {
   it('should initialize with cents and currency', () => {
@@ -10,7 +11,7 @@ describe('Money', () => {
   it('should throw if currency is not integer', () => {
     expect(() => {
       new Money(100.5, 'EUR');
-    }).toThrow('Amount must be an integer');
+    }).toThrow(BusinessRuleValidationError);
   });
 
   it('can add two values', () => {
@@ -26,7 +27,7 @@ describe('Money', () => {
     const twentyEuros = new Money(2000, 'USD');
     expect(() => {
       tenEuros.add(twentyEuros);
-    }).toThrow('Cannot operate on different currencies');
+    }).toThrow(BusinessRuleValidationError);
   });
 
   it('can subtract two values', () => {
@@ -42,7 +43,7 @@ describe('Money', () => {
     const twentyEuros = new Money(2000, 'USD');
     expect(() => {
       tenEuros.subtract(twentyEuros);
-    }).toThrow('Cannot operate on different currencies');
+    }).toThrow(BusinessRuleValidationError);
   });
 
   it('can check equality', () => {
