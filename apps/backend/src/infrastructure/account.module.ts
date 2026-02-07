@@ -1,15 +1,16 @@
 import { Module } from '@nestjs/common';
-import { InMemoryAccountRepository } from './repositories/in-memory-account.repository';
 import { TransferMoneyUseCase } from '../application/use-cases/transfer-money.use-case';
 import { AccountRepository } from '../domain/repositories/account.repository';
+import { AccountController } from './controllers/account.controller';
+import { PrismaAccountRepository } from './repositories/prisma-account.repository';
 
 @Module({
   imports: [],
-  controllers: [],
+  controllers: [AccountController],
   providers: [
     {
       provide: 'AccountRepository',
-      useClass: InMemoryAccountRepository,
+      useClass: PrismaAccountRepository,
     },
     {
       provide: TransferMoneyUseCase,
